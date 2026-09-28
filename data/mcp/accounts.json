@@ -1,0 +1,15 @@
+[
+  {
+    "id": "local-dev",
+    "createdAt": "2026-09-24T22:09:11.422Z",
+    "linkedAccounts": {
+      "neon": {
+        "partnerId": "neon",
+        "apiKey": "neon_test_key_123",
+        "linkedAt": "2026-09-24T22:09:11.429Z",
+        "currentPlan": "launch",
+        "monthlySpend": 0
+      }
+    }
+  }
+]

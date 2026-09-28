@@ -1,0 +1,31 @@
+{
+  "website": "https://vercel.com",
+  "upstream": {
+    "args": [
+      "-y",
+      "vercel-mcp-server",
+      "start",
+      "{api_key}"
+    ],
+    "transport": "stdio",
+    "command": "npx",
+    "env": {}
+  },
+  "category": "hosting",
+  "name": "Vercel",
+  "description": "Frontend cloud platform for Next.js and serverless applications",
+  "signupUrlTemplate": "https://vercel.com/signup?ref={affiliate_id}&sub_id={dev_id}",
+  "commission": {
+    "durationMonths": 12,
+    "minPayout": 50,
+    "basis": "monthly_spend",
+    "rate": 0.15,
+    "type": "revenue_share"
+  },
+  "devCashbackRate": 0.1,
+  "cashbackDurationMonths": 12,
+  "affiliateId": "ref_VERCEL_INFRACOP",
+  "id": "5f9ea600-2663-45a1-b9c3-b0a5a1c1920f",
+  "updatedAt": "2026-09-26T13:10:53.406Z",
+  "createdAt": "2026-09-26T13:10:53.406Z"
+}

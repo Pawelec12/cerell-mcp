@@ -1,0 +1,14 @@
+[
+  {
+    "id": "c959dced-675a-461d-a49e-6e60019386a6",
+    "devId": "local-dev",
+    "amount": 1.5,
+    "method": "stripe",
+    "status": "paid",
+    "stripeAccountId": null,
+    "stripeTransferId": "tr_sim_1790428237880_yy6x0r",
+    "requestedAt": "2026-09-26T13:10:29.651Z",
+    "processedAt": "2026-09-26T13:10:37.880Z",
+    "rejectionReason": null
+  }
+]

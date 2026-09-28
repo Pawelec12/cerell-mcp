@@ -1,0 +1,24 @@
+{
+  "name": "infra-copilot-admin",
+  "version": "0.1.0",
+  "description": "Admin backend & business logic engine for Infrastructure Copilot platform",
+  "type": "module",
+  "engines": { "node": ">=22.0.0" },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "test": "tsc && node --test \"dist/**/*.test.js\""
+  },
+  "dependencies": {
+    "hono": "^4.7.10",
+    "@hono/node-server": "^1.14.1",
+    "zod": "^3.25.67",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.8.3"
+  }
+}

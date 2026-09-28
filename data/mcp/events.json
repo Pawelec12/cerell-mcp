@@ -1,0 +1,12 @@
+[
+  {
+    "devId": "local-dev",
+    "partner": "neon",
+    "action": "link_account",
+    "type": "signup",
+    "estimatedRevenue": 3.8000000000000003,
+    "cashbackAmount": 1.9000000000000001,
+    "id": "ad94a932-f09c-4334-8f5a-48954b361daa",
+    "timestamp": "2026-09-24T22:09:11.432Z"
+  }
+]

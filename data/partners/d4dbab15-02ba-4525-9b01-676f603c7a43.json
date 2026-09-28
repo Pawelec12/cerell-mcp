@@ -1,0 +1,98 @@
+{
+  "website": "https://neon.tech",
+  "category": "database",
+  "tools": [
+    {
+      "returns": {
+        "mockData": {
+          "branch_id": "br_main",
+          "connection_string": "postgresql://user:pass@ep-test.neon.tech/mydb",
+          "project_id": "proj_abc123"
+        },
+        "successMessage": "Database '{name}' created successfully in {region}",
+        "envVarTemplates": {
+          "DATABASE_URL": "postgresql://user:pass@ep-{name}.{region}.neon.tech/{name}"
+        }
+      },
+      "params": [
+        {
+          "description": "Database name",
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "enum": [
+            "aws-us-east-1",
+            "aws-eu-central-1"
+          ],
+          "description": "Cloud region",
+          "name": "region",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "description": "Create a new Neon Postgres database",
+      "name": "create_database"
+    }
+  ],
+  "pricing": [
+    {
+      "monthlyPrice": 0,
+      "name": "Free",
+      "features": [
+        "0.5GB storage",
+        "1 project"
+      ]
+    },
+    {
+      "monthlyPrice": 19,
+      "name": "Launch",
+      "features": [
+        "10GB storage",
+        "Autoscaling",
+        "Branching"
+      ]
+    },
+    {
+      "monthlyPrice": 69,
+      "name": "Scale",
+      "features": [
+        "50GB storage",
+        "Read replicas"
+      ]
+    }
+  ],
+  "partnerContactEmail": "partners@neon.tech",
+  "logoUrl": "https://neon.tech/logo.svg",
+  "name": "Neon",
+  "description": "Serverless Postgres - branch your database like code",
+  "status": "active",
+  "signupUrlTemplate": "https://neon.tech/signup?ref={affiliate_id}&sub_id={dev_id}",
+  "payoutCycle": "monthly",
+  "commission": {
+    "durationMonths": 12,
+    "minPayout": 50,
+    "basis": "monthly_spend",
+    "rate": 0.2,
+    "type": "revenue_share"
+  },
+  "devCashbackRate": 0.1,
+  "cashbackDurationMonths": 12,
+  "documentation": [
+    {
+      "topic": "connection",
+      "content": "Use the DATABASE_URL env var with your Postgres client."
+    },
+    {
+      "topic": "branching",
+      "content": "Create branches with create_branch to test schema changes safely."
+    }
+  ],
+  "affiliateId": "ref_NEON_INFRACOP",
+  "trackingCookieDays": 30,
+  "partnerDashboardUrl": "https://neon.tech/partners/dashboard",
+  "id": "d4dbab15-02ba-4525-9b01-676f603c7a43",
+  "createdAt": "2026-09-25T17:16:20.700Z",
+  "updatedAt": "2026-09-25T17:16:20.700Z"
+}
