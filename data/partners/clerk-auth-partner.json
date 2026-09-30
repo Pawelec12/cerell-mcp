@@ -1,0 +1,102 @@
+{
+  "id": "clerk-auth-partner",
+  "name": "Clerk",
+  "category": "auth",
+  "website": "https://clerk.com",
+  "logoUrl": "https://icon.horse/icon/clerk.com",
+  "description": "Complete user management and authentication suite purpose-built for React and Next.js",
+  "status": "active",
+  "affiliateId": "ref_CLERK_INFRACOP",
+  "signupUrlTemplate": "https://clerk.com/signup?ref={affiliate_id}&sub_id={dev_id}",
+  "trackingCookieDays": 30,
+  "partnerContactEmail": "partners@clerk.com",
+  "partnerDashboardUrl": "https://dashboard.clerk.com",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.20,
+    "basis": "monthly_spend",
+    "durationMonths": 12,
+    "minPayout": 50
+  },
+  "devCashbackRate": 0.1,
+  "cashbackDurationMonths": 12,
+  "payoutCycle": "monthly",
+  "tools": [
+    {
+      "name": "setup_auth",
+      "description": "Initialize Clerk authentication for a project and retrieve API keys",
+      "params": [
+        {
+          "name": "app_name",
+          "type": "string",
+          "description": "Application name",
+          "required": true
+        },
+        {
+          "name": "sign_in_url",
+          "type": "string",
+          "description": "Sign-in path",
+          "required": false,
+          "default": "/sign-in"
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {
+          "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_{app_name}_key_123",
+          "CLERK_SECRET_KEY": "sk_test_{app_name}_secret_456"
+        },
+        "mockData": {
+          "application_id": "app_{app_name}_123",
+          "user_count": 0
+        },
+        "successMessage": "Clerk auth configured for '{app_name}'. Keys set in environment."
+      }
+    },
+    {
+      "name": "create_jwt_template",
+      "description": "Create a custom JWT session template in Clerk for backend authorization",
+      "params": [
+        {
+          "name": "template_name",
+          "type": "string",
+          "description": "Template name (e.g. hasura, supabase, custom)",
+          "required": true
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {},
+        "mockData": { "template_id": "tmpl_{template_name}" },
+        "successMessage": "JWT template '{template_name}' created successfully."
+      }
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "features": ["Up to 10,000 monthly active users", "Social logins (Google, GitHub)", "Multi-factor authentication"]
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 25,
+      "features": ["Unlimited active users", "Custom domains", "Organization / multi-tenant roles", "Audit logs"]
+    },
+    {
+      "name": "Enterprise",
+      "monthlyPrice": 150,
+      "features": ["SAML / Enterprise SSO", "Custom SLA", "Dedicated customer success engineer"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "middleware",
+      "content": "Add clerkMiddleware() in src/middleware.ts to protect routes and read session auth state."
+    },
+    {
+      "topic": "scaling",
+      "content": "Clerk edge tokens verify statelessly with JWT public keys without roundtripping to the auth database."
+    }
+  ],
+  "createdAt": "2026-09-28T22:00:00.000Z",
+  "updatedAt": "2026-09-28T22:00:00.000Z"
+}

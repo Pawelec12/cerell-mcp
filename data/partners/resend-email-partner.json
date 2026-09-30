@@ -1,0 +1,112 @@
+{
+  "id": "resend-email-partner",
+  "name": "Resend",
+  "category": "email",
+  "website": "https://resend.com",
+  "logoUrl": "https://icon.horse/icon/resend.com",
+  "description": "Developer-first transactional email API with React email template components",
+  "status": "active",
+  "affiliateId": "ref_RESEND_INFRACOP",
+  "signupUrlTemplate": "https://resend.com/signup?ref={affiliate_id}&sub_id={dev_id}",
+  "trackingCookieDays": 30,
+  "partnerContactEmail": "partners@resend.com",
+  "partnerDashboardUrl": "https://resend.com/overview",
+  "commission": {
+    "type": "hybrid",
+    "signupBonus": 10,
+    "revenueShare": {
+      "rate": 0.15,
+      "basis": "monthly_spend",
+      "durationMonths": 12,
+      "minPayout": 0
+    },
+    "minPayout": 25
+  },
+  "devCashbackRate": 0.1,
+  "cashbackDurationMonths": 12,
+  "payoutCycle": "monthly",
+  "tools": [
+    {
+      "name": "create_domain",
+      "description": "Register and verify a sending domain with DNS SPF/DKIM records",
+      "params": [
+        {
+          "name": "domain",
+          "type": "string",
+          "description": "Domain name to register (e.g. acme.com)",
+          "required": true
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "description": "Sending region (us-east-1, eu-west-1, sa-east-1)",
+          "required": false,
+          "default": "us-east-1"
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {
+          "RESEND_API_KEY": "re_{domain}_key_789",
+          "RESEND_FROM": "noreply@{domain}"
+        },
+        "mockData": {
+          "domain_id": "dom_{domain}_123",
+          "status": "pending_dns"
+        },
+        "successMessage": "Domain '{domain}' registered. Configure DNS records to complete verification."
+      }
+    },
+    {
+      "name": "send_test_email",
+      "description": "Send a test or verification email via Resend API",
+      "params": [
+        {
+          "name": "to",
+          "type": "string",
+          "description": "Recipient email address",
+          "required": true
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "description": "Email subject line",
+          "required": true
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {},
+        "mockData": { "email_id": "email_test_123" },
+        "successMessage": "Test email sent to {to}."
+      }
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "features": ["3,000 emails/month", "100 emails/day", "1 domain"]
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "features": ["50,000 emails/month", "Unlimited domains", "Dedicated IP option", "Full audit log"]
+    },
+    {
+      "name": "Scale",
+      "monthlyPrice": 100,
+      "features": ["250,000 emails/month", "99.9% uptime SLA", "Dedicated deliverability specialist"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "react-email",
+      "content": "Render emails using standard React components with the @react-email/components library."
+    },
+    {
+      "topic": "deliverability",
+      "content": "Ensure SPF, DKIM, and DMARC DNS TXT records are configured on your apex domain."
+    }
+  ],
+  "createdAt": "2026-09-28T22:00:00.000Z",
+  "updatedAt": "2026-09-28T22:00:00.000Z"
+}

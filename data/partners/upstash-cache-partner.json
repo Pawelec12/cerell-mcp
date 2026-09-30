@@ -1,0 +1,104 @@
+{
+  "id": "upstash-cache-partner",
+  "name": "Upstash",
+  "category": "cache",
+  "website": "https://upstash.com",
+  "logoUrl": "https://icon.horse/icon/upstash.com",
+  "description": "Serverless data platform offering Redis, Kafka, and QStash with pay-per-request pricing",
+  "status": "active",
+  "affiliateId": "ref_UPSTASH_INFRACOP",
+  "signupUrlTemplate": "https://upstash.com/signup?ref={affiliate_id}&sub_id={dev_id}",
+  "trackingCookieDays": 30,
+  "partnerContactEmail": "partners@upstash.com",
+  "partnerDashboardUrl": "https://console.upstash.com",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.20,
+    "basis": "monthly_spend",
+    "durationMonths": 12,
+    "minPayout": 25
+  },
+  "devCashbackRate": 0.1,
+  "cashbackDurationMonths": 12,
+  "payoutCycle": "monthly",
+  "tools": [
+    {
+      "name": "create_redis_database",
+      "description": "Create a serverless Redis database cluster with REST API support",
+      "params": [
+        {
+          "name": "database_name",
+          "type": "string",
+          "description": "Redis database name",
+          "required": true
+        },
+        {
+          "name": "region",
+          "type": "string",
+          "description": "Deployment region",
+          "required": false,
+          "default": "eu-central-1"
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {
+          "UPSTASH_REDIS_REST_URL": "https://{database_name}-{region}.upstash.io",
+          "UPSTASH_REDIS_REST_TOKEN": "token_{database_name}_xyz"
+        },
+        "mockData": {
+          "endpoint": "https://{database_name}-{region}.upstash.io",
+          "port": 6379
+        },
+        "successMessage": "Upstash Redis database '{database_name}' provisioned successfully."
+      }
+    },
+    {
+      "name": "create_qstash_topic",
+      "description": "Create a QStash publish/subscribe message queue topic",
+      "params": [
+        {
+          "name": "topic_name",
+          "type": "string",
+          "description": "Topic name",
+          "required": true
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {
+          "QSTASH_TOKEN": "qstash_token_{topic_name}"
+        },
+        "mockData": { "topic": "{topic_name}", "subscribers": 0 },
+        "successMessage": "QStash topic '{topic_name}' created."
+      }
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "features": ["10,000 commands/day", "256MB storage", "1 database"]
+    },
+    {
+      "name": "Pay As You Go",
+      "monthlyPrice": 10,
+      "features": ["$0.2 per 100K commands", "TLS support", "Global database replication", "QStash messaging"]
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 120,
+      "features": ["Dedicated compute", "100GB storage included", "99.99% uptime SLA", "Private VPC peering"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "connection",
+      "content": "Use @upstash/redis package with UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN."
+    },
+    {
+      "topic": "scaling",
+      "content": "Upstash auto-scales to hundreds of thousands of operations per second with zero connection management overhead."
+    }
+  ],
+  "createdAt": "2026-09-28T22:00:00.000Z",
+  "updatedAt": "2026-09-28T22:00:00.000Z"
+}

@@ -1,31 +1,114 @@
 {
-  "website": "https://vercel.com",
-  "upstream": {
-    "args": [
-      "-y",
-      "vercel-mcp-server",
-      "start",
-      "{api_key}"
-    ],
-    "transport": "stdio",
-    "command": "npx",
-    "env": {}
-  },
-  "category": "hosting",
+  "id": "5f9ea600-2663-45a1-b9c3-b0a5a1c1920f",
   "name": "Vercel",
-  "description": "Frontend cloud platform for Next.js and serverless applications",
+  "category": "hosting",
+  "website": "https://vercel.com",
+  "logoUrl": "https://icon.horse/icon/vercel.com",
+  "description": "Frontend cloud platform for Next.js, web applications, and serverless edge functions",
+  "status": "active",
+  "affiliateId": "ref_VERCEL_INFRACOP",
   "signupUrlTemplate": "https://vercel.com/signup?ref={affiliate_id}&sub_id={dev_id}",
+  "trackingCookieDays": 30,
+  "partnerContactEmail": "partners@vercel.com",
+  "partnerDashboardUrl": "https://vercel.com/dashboard",
   "commission": {
-    "durationMonths": 12,
-    "minPayout": 50,
-    "basis": "monthly_spend",
+    "type": "revenue_share",
     "rate": 0.15,
-    "type": "revenue_share"
+    "basis": "monthly_spend",
+    "durationMonths": 12,
+    "minPayout": 50
   },
   "devCashbackRate": 0.1,
   "cashbackDurationMonths": 12,
-  "affiliateId": "ref_VERCEL_INFRACOP",
-  "id": "5f9ea600-2663-45a1-b9c3-b0a5a1c1920f",
-  "updatedAt": "2026-09-26T13:10:53.406Z",
-  "createdAt": "2026-09-26T13:10:53.406Z"
+  "payoutCycle": "monthly",
+  "tools": [
+    {
+      "name": "deploy_project",
+      "description": "Deploy a frontend or Next.js project to Vercel",
+      "params": [
+        {
+          "name": "project_name",
+          "type": "string",
+          "description": "Name of the project to deploy",
+          "required": true
+        },
+        {
+          "name": "framework",
+          "type": "string",
+          "description": "Framework preset (e.g. nextjs, vite, remix)",
+          "required": false,
+          "default": "nextjs"
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {
+          "VERCEL_PROJECT_ID": "prj_{project_name}_123",
+          "NEXT_PUBLIC_APP_URL": "https://{project_name}.vercel.app"
+        },
+        "mockData": {
+          "deployment_url": "https://{project_name}.vercel.app",
+          "status": "ready"
+        },
+        "successMessage": "Project '{project_name}' deployed successfully to https://{project_name}.vercel.app"
+      }
+    },
+    {
+      "name": "set_env_var",
+      "description": "Set an environment variable on a Vercel project",
+      "params": [
+        {
+          "name": "project_name",
+          "type": "string",
+          "description": "Target project name",
+          "required": true
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "description": "Environment variable key",
+          "required": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "description": "Environment variable value",
+          "required": true
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {},
+        "mockData": { "configured": true },
+        "successMessage": "Environment variable {key} set on {project_name}"
+      }
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Hobby",
+      "monthlyPrice": 0,
+      "features": ["Non-commercial deployments", "Automatic HTTPS", "Global edge network"]
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 20,
+      "features": ["Commercial usage", "Preview deployment comments", "Web analytics", "Fast edge middleware"]
+    },
+    {
+      "name": "Enterprise",
+      "monthlyPrice": 150,
+      "features": ["SSO SAML", "99.99% SLA guarantee", "Dedicated support", "Advanced DDoS mitigation"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "deployment",
+      "content": "Deploy your repository with automatic git integration on push to main branch."
+    },
+    {
+      "topic": "scaling",
+      "content": "Serverless functions scale automatically to 0 when idle and burst to thousands of concurrent requests."
+    }
+  ],
+  "createdAt": "2026-09-26T13:10:53.406Z",
+  "updatedAt": "2026-09-28T22:00:00.000Z"
 }

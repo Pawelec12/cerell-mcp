@@ -5,7 +5,7 @@
     "linkedAccounts": {
       "neon": {
         "partnerId": "neon",
-        "apiKey": "neon_test_key_123",
+        "apiKey": "enc:v1:6c03816aaa9fa57f34e052f3:d3288bd1fc371d4a245550769218f562:4860371635abb6a4f2703bfed76e96cf54",
         "linkedAt": "2026-09-24T22:09:11.429Z",
         "currentPlan": "launch",
         "monthlySpend": 0
