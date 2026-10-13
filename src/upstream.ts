@@ -26,6 +26,8 @@ export interface UpstreamCallResult {
 /** First `npx -y <pkg>` run downloads the package, which can exceed the SDK's 60s default. */
 const CONNECT_TIMEOUT_MS = 120_000;
 const STDERR_HEAD = 300;
+/** Cap concurrent live partner MCP processes (reconnect on next use). */
+const MAX_UPSTREAM_CLIENTS = 3;
 
 /** stdio upstreams run on the developer's machine, so only package launchers are allowed. */
 export const ALLOWED_STDIO_COMMANDS = ['npx', 'node', 'uvx', 'docker'] as const;
@@ -34,7 +36,7 @@ const fill = (s: string, apiKey: string) => s.replaceAll('{api_key}', apiKey);
 const fillAll = (o: Record<string, string>, apiKey: string) =>
   Object.fromEntries(Object.entries(o).map(([k, v]) => [k, fill(v, apiKey)]));
 
-/** One live MCP client per (partner, api key); opened lazily, dropped when the connection dies. */
+/** One live MCP client per (partner, api key); opened lazily, LRU-capped. */
 export class UpstreamPool {
   private clients = new Map<string, Promise<Client>>();
 
@@ -42,43 +44,74 @@ export class UpstreamPool {
     return `${partnerId}:${createHash('sha256').update(apiKey).digest('hex')}`;
   }
 
+  /** Map insertion order = LRU; re-insert on touch. */
+  private touch(key: string, value: Promise<Client>): void {
+    this.clients.delete(key);
+    this.clients.set(key, value);
+  }
+
+  private async evictIfNeeded(): Promise<void> {
+    while (this.clients.size >= MAX_UPSTREAM_CLIENTS) {
+      const oldest = this.clients.keys().next().value as string | undefined;
+      if (!oldest) break;
+      const pending = this.clients.get(oldest);
+      this.clients.delete(oldest);
+      if (pending) {
+        try {
+          (await pending).close();
+        } catch {
+          // ignore close errors on eviction
+        }
+      }
+    }
+  }
+
   private connect(partnerId: string, config: UpstreamConfig, apiKey: string): Promise<Client> {
     const key = this.key(partnerId, apiKey);
     const existing = this.clients.get(key);
-    if (existing) return existing;
+    if (existing) {
+      this.touch(key, existing);
+      return existing;
+    }
 
     if (config.transport === 'stdio' && !(ALLOWED_STDIO_COMMANDS as readonly string[]).includes(config.command)) {
-      return Promise.reject(new Error(`stdio command "${config.command}" is not allowed (use one of: ${ALLOWED_STDIO_COMMANDS.join(', ')})`));
+      return Promise.reject(
+        new Error(`stdio command "${config.command}" is not allowed (use one of: ${ALLOWED_STDIO_COMMANDS.join(', ')})`),
+      );
     }
 
-    const client = new Client({ name: 'infra-copilot-gateway', version: '0.1.0' });
-    client.onclose = () => this.clients.delete(key);
+    const connecting = this.evictIfNeeded().then(() => {
+      const client = new Client({ name: 'cerell-mcp', version: '0.1.0' });
+      client.onclose = () => this.clients.delete(key);
 
-    // First stderr output of a stdio server, surfaced when it fails to start (e.g. "401" = bad API key)
-    let stderrHead = '';
-    const transport = config.transport === 'stdio'
-      ? new StdioClientTransport({
-          command: config.command,
-          args: config.args.map(a => fill(a, apiKey)),
-          env: fillAll(config.env, apiKey),
-          stderr: 'pipe',
-        })
-      : new StreamableHTTPClientTransport(new URL(fill(config.url, apiKey)), {
-          requestInit: { headers: fillAll(config.headers, apiKey) },
+      let stderrHead = '';
+      const transport =
+        config.transport === 'stdio'
+          ? new StdioClientTransport({
+              command: config.command,
+              args: config.args.map((a) => fill(a, apiKey)),
+              env: fillAll(config.env, apiKey),
+              stderr: 'pipe',
+            })
+          : new StreamableHTTPClientTransport(new URL(fill(config.url, apiKey)), {
+              requestInit: { headers: fillAll(config.headers, apiKey) },
+            });
+      if (transport instanceof StdioClientTransport) {
+        transport.stderr?.on('data', (chunk: Buffer) => {
+          if (stderrHead.length < STDERR_HEAD) stderrHead += chunk.toString();
         });
-    if (transport instanceof StdioClientTransport) {
-      transport.stderr?.on('data', (chunk: Buffer) => {
-        if (stderrHead.length < STDERR_HEAD) stderrHead += chunk.toString();
-      });
-    }
+      }
 
-    const connecting = client.connect(transport, { timeout: CONNECT_TIMEOUT_MS })
-      .then(() => client)
-      .catch((error: unknown) => {
-        const message = error instanceof Error ? error.message : String(error);
-        const said = stderrHead.trim().split('\n')[0]?.slice(0, STDERR_HEAD).replaceAll(apiKey, '***');
-        throw new Error(said ? `${message} (partner server: ${said})` : message);
-      });
+      return client
+        .connect(transport, { timeout: CONNECT_TIMEOUT_MS })
+        .then(() => client)
+        .catch((error: unknown) => {
+          const message = error instanceof Error ? error.message : String(error);
+          const said = stderrHead.trim().split('\n')[0]?.slice(0, STDERR_HEAD).replaceAll(apiKey, '***');
+          throw new Error(said ? `${message} (partner server: ${said})` : message);
+        });
+    });
+
     connecting.catch(() => this.clients.delete(key));
     this.clients.set(key, connecting);
     return connecting;
@@ -110,18 +143,23 @@ export class UpstreamPool {
     const content = (result.content ?? []) as { type: string; text?: string }[];
     return {
       isError: result.isError === true,
-      text: content.map(c => (c.type === 'text' ? c.text : `[${c.type}]`)).join('\n'),
+      text: content.map((c) => (c.type === 'text' ? c.text : `[${c.type}]`)).join('\n'),
       structured: result.structuredContent as Record<string, unknown> | undefined,
     };
   }
 
   /** Drops every dev's connection to one partner (its upstream config changed or was removed). */
   async closePartner(partnerId: string): Promise<void> {
-    await this.close(k => k.startsWith(`${partnerId}:`));
+    await this.close((k) => k.startsWith(`${partnerId}:`));
   }
 
   async closeAll(): Promise<void> {
     await this.close(() => true);
+  }
+
+  /** Test helper: how many live upstream slots are reserved. */
+  size(): number {
+    return this.clients.size;
   }
 
   private async close(match: (key: string) => boolean): Promise<void> {
@@ -132,7 +170,7 @@ export class UpstreamPool {
         this.clients.delete(k);
       }
     }
-    await Promise.allSettled(pending.map(async p => (await p).close()));
+    await Promise.allSettled(pending.map(async (p) => (await p).close()));
   }
 }
 

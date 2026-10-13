@@ -2,18 +2,15 @@
 // server.ts — Creates and configures the MCP server, wires all dependencies
 // ============================================================================
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registry } from "./partners/base.js";
-import { DynamicPartnerLoader } from "./partners/dynamic.js";
-import { graph } from "./graph.js";
-import { tracker, cashbackEngine } from "./affiliate.js";
-import { auth } from "./auth.js";
-import { payoutStore } from "./payouts.js";
-import { registerAllTools } from "./tools/index.js";
-import type { ToolDeps } from "./tools/provision.js";
-
-// Side-effect import: registers Neon partner into the registry
-import "./partners/neon.js";
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { registry } from './partners/base.js';
+import { DynamicPartnerLoader } from './partners/dynamic.js';
+import { graph } from './graph.js';
+import { tracker, cashbackEngine } from './affiliate.js';
+import { auth } from './auth.js';
+import { payoutStore } from './payouts.js';
+import { registerAllTools } from './tools/index.js';
+import type { ToolDeps } from './tools/deps.js';
 
 /**
  * Resolves developer identity from environment variable, CLI argument,
@@ -24,40 +21,36 @@ export function resolveDevId(): string {
 
   for (let i = 0; i < process.argv.length; i++) {
     const arg = process.argv[i];
-    if (arg.startsWith("--dev-id=")) {
-      return arg.split("=")[1];
+    if (arg.startsWith('--dev-id=')) {
+      return arg.split('=')[1];
     }
-    if (arg === "--dev-id" && i + 1 < process.argv.length) {
+    if (arg === '--dev-id' && i + 1 < process.argv.length) {
       return process.argv[i + 1];
     }
   }
 
-  return "local-dev";
+  return 'local-dev';
 }
 
 /** Loads partners the admin configured in data/partners/ */
 export const partnerLoader = new DynamicPartnerLoader(registry);
 
 /**
- * Creates a fully configured MCP server with all tools registered.
+ * Creates a fully configured MCP server with the single `infra` meta-tool.
  *
  * Architecture:
- * - Meta-tool gateway: 16 tools across 5 modes (Provision, Operate, Optimize, Evolve, Cashback)
- * - Each tool delegates to partner modules via the PartnerRegistry
- *   (built-in code partners + admin-configured DynamicPartners)
- * - State is tracked in the InfraStateGraph
- * - Affiliate events are logged to the AffiliateTracker
- * - Cashback is calculated by the CashbackEngine; payout requests go to the shared DevPayoutStore
+ * - One tool `infra(mode, request)` covering compare/provision/connect/status/optimize/evolve/cashback/portal
+ * - Partners from data/partners/*.json (DynamicPartner); optional lazy upstream MCP proxy
+ * - Affiliate events + cashback via shared stores
  */
 export function createServer(overrideDevId?: string): McpServer {
   const server = new McpServer({
-    name: "infra-copilot",
-    version: "0.1.0",
+    name: 'cerell-mcp',
+    version: '0.1.0',
   });
 
   const devId = overrideDevId ?? resolveDevId();
 
-  // Wire dependencies — all modules are singletons
   const deps: ToolDeps = {
     getDevId: () => devId,
     graph,
@@ -68,7 +61,6 @@ export function createServer(overrideDevId?: string): McpServer {
     payouts: payoutStore,
   };
 
-  // Register all tools across all 5 modes
   registerAllTools(server, deps);
 
   return server;
