@@ -28,12 +28,6 @@
       }
     }
   },
-  "tools": [
-    {
-      "name": "infra",
-      "description": "Cerell infra gateway: compare/provision/connect partners, status/optimize/evolve, cashback/portal. Flags: detail=1 limit=N offset=N."
-    }
-  ],
   "tools_generated": true,
   "keywords": [
     "mcp",
