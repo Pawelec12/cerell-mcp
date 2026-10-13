@@ -4,6 +4,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20.0.0-339933.svg)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Website](https://img.shields.io/badge/Website-cerell.eu-000000.svg)](https://cerell.eu)
+[![smithery badge](https://smithery.ai/badge/apptent/cerell)](https://smithery.ai/servers/apptent/cerell)
 
 Local **stdio** meta-tool gateway for Cursor, Claude Desktop, Windsurf, and VS Code.
 
