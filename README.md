@@ -85,11 +85,25 @@ Configured in `data/partners/*.json` (Neon, Clerk, Upstash, Resend, Vercel, …)
 
 ---
 
+## Publish on Smithery (local / MCPB)
+
+Do **not** paste the GitHub URL into Smithery’s “MCP Server URL” field. Cerell is stdio-local.
+
+```bash
+npm run pack:mcpb
+# → cerell.mcpb
+
+npx @smithery/cli mcp publish ./cerell.mcpb -n apptent/cerell
+```
+
+That matches Smithery’s **Local (MCPB Bundle)** flow: users download the bundle and run it on their machine.
+
 ## Dev
 
 ```bash
 npm run build
 npm test
+npm run pack:mcpb
 npm run inspector
 ```
 

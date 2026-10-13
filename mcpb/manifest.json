@@ -1,0 +1,71 @@
+{
+  "manifest_version": "0.3",
+  "name": "cerell",
+  "display_name": "Cerell — Infra Copilot & Cashback",
+  "version": "0.1.0",
+  "description": "Local infrastructure meta-tool gateway with developer cashback. One infra tool: compare, provision, connect, optimize, cashback.",
+  "long_description": "Cerell runs locally over stdio. Use mode=compare|provision|connect|disconnect|status|optimize|evolve|cashback|portal. Compact JSON by default; add detail=1 or limit=N for more. Affiliate signup links stay in the provision path. Partner upstream MCPs (if configured) start lazily after you link an API key.",
+  "author": {
+    "name": "Pawelec12",
+    "url": "https://github.com/Pawelec12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pawelec12/cerell-mcp.git"
+  },
+  "homepage": "https://cerell.eu",
+  "documentation": "https://github.com/Pawelec12/cerell-mcp#readme",
+  "support": "https://github.com/Pawelec12/cerell-mcp/issues",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "INFRA_DEV_ID": "${user_config.dev_id}",
+        "PORTAL_BASE_URL": "${user_config.portal_base_url}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "infra",
+      "description": "Cerell infra gateway: compare/provision/connect partners, status/optimize/evolve, cashback/portal. Flags: detail=1 limit=N offset=N."
+    }
+  ],
+  "tools_generated": true,
+  "keywords": [
+    "mcp",
+    "infrastructure",
+    "cashback",
+    "neon",
+    "clerk",
+    "finops",
+    "cerell"
+  ],
+  "license": "MIT",
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "user_config": {
+    "dev_id": {
+      "type": "string",
+      "title": "Developer ID",
+      "description": "Optional stable ID for cashback attribution (default: local-dev)",
+      "default": "local-dev",
+      "required": false
+    },
+    "portal_base_url": {
+      "type": "string",
+      "title": "Portal base URL",
+      "description": "Base URL for Developer Portal links (default: http://localhost:3000)",
+      "default": "http://localhost:3000",
+      "required": false
+    }
+  }
+}
