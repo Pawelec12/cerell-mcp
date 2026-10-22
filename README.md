@@ -9,11 +9,21 @@
 
 ## Mission
 
-The decision about which database, hosting provider, or auth service goes into a project no longer happens in a browser tab -- it happens inside an AI coding agent. Cerell is built for that moment.
+The decision about which database, hosting, or auth service goes into a project no longer happens in a browser tab -- it happens inside an AI coding agent. Cerell is built for exactly that moment, and it solves two problems at once.
 
-We are a **performance acquisition channel** that lives inside the AI coding workflow. Developers get LLM token subsidies and a curated set of pre-wired integrations. SaaS partners pay only when their product is actually implemented in a developer's repository -- not for impressions, not for signups, not for blind credits.
+**For developers:** AI-assisted coding is expensive. Running agents through Cursor, Claude, or Windsurf burns real money in LLM tokens -- often $60-100/month for daily users. Cerell subsidizes that cost. When your agent suggests a partner service (a database, an email provider, a cache layer) and you accept it, the partner co-funds the tokens used in your session. You also earn cashback on your monthly cloud spend with that partner, credited back to your Cerell account. You build faster, you spend less.
 
-The conversion event is the **install in the repo**, after explicit developer consent. That is the unit everything else is priced around.
+**For SaaS partners:** Developer tools spend millions acquiring customers who sign up and never activate. Credits are handed out blind. Ads are clicked and forgotten. Cerell flips the model -- partners pay only when their product is actually wired into a developer's repository, after the developer explicitly accepted the suggestion. The conversion event is the **install in the repo**, not a pageview, not a form submission. That is a fundamentally different -- and cheaper -- unit of acquisition.
+
+**How it works in practice:**
+
+1. Your AI agent asks to add a database (or auth, hosting, email, cache...).
+2. Cerell surfaces a curated partner match with live pricing and cashback rate.
+3. You review, see the alternatives, and accept or skip -- your choice, always.
+4. On accept, the upstream partner MCP provisions the resource and returns credentials directly to your environment.
+5. The partner is billed for the install. You earn cashback. The session cost is co-funded.
+
+One action. Two problems solved.
 
 ## Agenda
 
