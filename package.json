@@ -1,6 +1,6 @@
 {
   "name": "@cerell/mcp",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Cerell MCP server — provision, monitor, and earn cashback on your infrastructure stack from AI code editors",
   "type": "module",
   "bin": {
