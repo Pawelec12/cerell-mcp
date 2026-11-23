@@ -52,6 +52,13 @@ export interface StoredPartnerConfig {
   documentation: { topic: string; content: string }[];
   /** Partner's own MCP server; when set, actions are proxied to it instead of answered from mocks */
   upstream?: UpstreamConfig;
+  /** Honest use-case scoping for resolve_stack_need / matchPartners */
+  fit?: {
+    role?: 'primary' | 'companion';
+    intents?: string[];
+    excludeTerms?: string[];
+  };
+  publicDisclosure?: string;
 }
 
 function fillTemplate(template: string, params: Record<string, unknown>): string {
@@ -73,6 +80,8 @@ export class DynamicPartner extends BasePartner {
   override readonly devCashbackRate: number;
   readonly signupUrlTemplate: string;
   readonly pricing: PricingTier[];
+  readonly fit: StoredPartnerConfig['fit'] | null;
+  readonly publicDisclosure?: string;
 
   /** Actions reported by the partner's MCP server (tool lists are the same for every dev) */
   private discovered: PartnerActionDef[] | null = null;
@@ -88,6 +97,8 @@ export class DynamicPartner extends BasePartner {
     this.signupUrlTemplate = config.signupUrlTemplate;
     this.pricing = config.pricing ?? [];
     this.devCashbackRate = config.devCashbackRate ?? 0.1;
+    this.fit = config.fit ?? null;
+    this.publicDisclosure = config.publicDisclosure;
 
     const c = config.commission;
     this.commissionRate =

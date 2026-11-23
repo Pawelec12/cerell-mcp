@@ -25,6 +25,11 @@
   "devCashbackRate": 0.1,
   "cashbackDurationMonths": 12,
   "payoutCycle": "monthly",
+  "fit": {
+    "role": "primary",
+    "intents": ["email", "transactional", "smtp", "resend", "mail"],
+    "excludeTerms": ["newsletter", "waitlist", "audience", "digest"]
+  },
   "tools": [
     {
       "name": "create_domain",

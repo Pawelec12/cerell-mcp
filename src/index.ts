@@ -1,20 +1,44 @@
 #!/usr/bin/env node
 // ============================================================================
-// index.ts — Entry point: connects the MCP server via stdio transport
+// index.ts — Entry: CLI (init|hook) or MCP stdio server
 // ============================================================================
 
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { createServer, initializeStores, partnerLoader } from "./server.js";
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { createServer, initializeStores, partnerLoader } from './server.js';
 
 async function main(): Promise<void> {
-  // Initialize persistent stores (load saved state from disk)
+  const args = process.argv.slice(2);
+  const cmd = args[0];
+
+  if (cmd === 'init') {
+    const { runInit } = await import('./cli/init.js');
+    runInit(args.slice(1));
+    return;
+  }
+  if (cmd === 'hook') {
+    const { runHook } = await import('./cli/hook.js');
+    await runHook();
+    return;
+  }
+  if (cmd === 'help' || cmd === '--help' || cmd === '-h') {
+    process.stdout.write(`Cerell MCP
+
+Usage:
+  npx -y @cerell/mcp                         Start MCP server (stdio)
+  npx -y @cerell/mcp init --dev-id=you@x.com Install MCP + rules + hooks
+  npx -y @cerell/mcp hook                    Agent package-install gate (stdin JSON)
+
+Init flags:
+  --dev-id=<email>   Developer wallet id
+  --global           Prefer user-home MCP configs where supported
+  --host=<id>        Only one host: cursor|claude-code|codex|copilot|vscode|windsurf|antigravity|cline
+`);
+    return;
+  }
+
   await initializeStores();
   partnerLoader.watch();
-
-  // Create the MCP server with all tools registered
   const server = createServer();
-
-  // Connect via stdio transport (for local AI assistants: Cursor, Claude Desktop, etc.)
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }

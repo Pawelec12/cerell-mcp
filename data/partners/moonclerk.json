@@ -1,0 +1,69 @@
+{
+  "id": "moonclerk",
+  "name": "MoonClerk",
+  "category": "payments",
+  "website": "https://www.moonclerk.com",
+  "logoUrl": "https://icon.horse/icon/moonclerk.com",
+  "description": "Stripe-powered payment forms — recurring billing, donations, and checkouts without code",
+  "status": "active",
+  "affiliateId": "antoni",
+  "signupUrlTemplate": "https://www.moonclerk.com?via={affiliate_id}",
+  "trackingCookieDays": 60,
+  "partnerContactEmail": "affiliates@moonclerk.com",
+  "partnerDashboardUrl": "https://www.moonclerk.com",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.25,
+    "basis": "monthly_spend",
+    "durationMonths": 12,
+    "minPayout": 50
+  },
+  "devCashbackRate": 0.2,
+  "cashbackDurationMonths": 12,
+  "payoutCycle": "monthly",
+  "publicDisclosure": "Referred customers get 10% off their first 3 months.",
+  "fit": {
+    "role": "primary",
+    "intents": ["payments", "checkout", "subscription", "recurring", "billing", "donation", "invoice", "stripe"]
+  },
+  "tools": [
+    {
+      "name": "start_moonclerk",
+      "description": "Open MoonClerk signup via Cerell referral and outline first payment form",
+      "params": [
+        {
+          "name": "form_type",
+          "type": "string",
+          "description": "Primary form type (subscription, donation, one_time, invoice)",
+          "required": true,
+          "enum": ["subscription", "donation", "one_time", "invoice"]
+        }
+      ],
+      "returns": {
+        "envVarTemplates": {},
+        "mockData": { "status": "signup_opened" },
+        "successMessage": "MoonClerk signup ready for '{form_type}'. Referrals get 10% off first 3 months; you earn 20% cashback for 12 months."
+      }
+    }
+  ],
+  "pricing": [
+    {
+      "name": "Starter",
+      "monthlyPrice": 19,
+      "features": ["Branded forms", "Recurring billing", "Stripe payouts"]
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 49,
+      "features": ["More forms", "Webhooks", "Advanced automation"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "signup",
+      "content": "Register via https://www.moonclerk.com?via=antoni. Affiliate 25% for 12 months; developers get 20% cashback. Referred customers get 10% off their first 3 months. MoonClerk has no official public MCP; a third-party wrapper exists and is not wired."
+    }
+  ],
+  "createdAt": "2026-11-09T17:00:00.000Z",
+  "updatedAt": "2026-11-09T17:00:00.000Z"
+}

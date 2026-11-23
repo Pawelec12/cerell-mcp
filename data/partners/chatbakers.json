@@ -1,0 +1,56 @@
+{
+  "id": "chatbakers",
+  "name": "ChatBakers",
+  "category": "monitoring",
+  "website": "https://www.chatbakers.com",
+  "logoUrl": "https://icon.horse/icon/chatbakers.com",
+  "description": "AI visibility monitoring — track brand mentions across ChatGPT, Perplexity, Gemini, and more",
+  "status": "active",
+  "affiliateId": "antoni",
+  "signupUrlTemplate": "https://www.chatbakers.com?via={affiliate_id}",
+  "trackingCookieDays": 60,
+  "partnerContactEmail": "affiliates@chatbakers.com",
+  "partnerDashboardUrl": "https://www.chatbakers.com",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.3,
+    "basis": "monthly_spend",
+    "durationMonths": null,
+    "minPayout": 50
+  },
+  "devCashbackRate": 0.25,
+  "cashbackDurationMonths": null,
+  "payoutCycle": "monthly",
+  "fit": {
+    "role": "primary",
+    "intents": ["ai visibility", "brand monitoring", "llm seo", "share of voice", "monitoring"],
+    "excludeTerms": ["sentry", "crash", "exception", "stack trace", "apm", "uptime"]
+  },
+  "upstream": {
+    "transport": "http",
+    "url": "https://app.chatbakers.com/mcp",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "tools": [],
+  "pricing": [
+    {
+      "name": "Starter",
+      "monthlyPrice": 49,
+      "features": [
+        "AI mention tracking",
+        "Competitor share of voice",
+        "Scheduled reports"
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "signup",
+      "content": "Register via https://www.chatbakers.com?via=antoni. 30% on all payments; developers get 25% cashback. MCP: https://app.chatbakers.com/mcp — connect with api_key (Bearer). The server returns AUTH_TOKEN_MISSING without it."
+    }
+  ],
+  "createdAt": "2026-11-09T17:00:00.000Z",
+  "updatedAt": "2026-11-09T17:00:00.000Z"
+}

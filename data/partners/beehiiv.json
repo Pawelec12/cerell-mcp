@@ -1,0 +1,64 @@
+{
+  "id": "beehiiv",
+  "name": "beehiiv",
+  "category": "email",
+  "website": "https://www.beehiiv.com",
+  "logoUrl": "https://icon.horse/icon/beehiiv.com",
+  "description": "Newsletter platform for growth — publish, monetize, and scale email audiences",
+  "status": "active",
+  "affiliateId": "antoni-widawski",
+  "signupUrlTemplate": "https://www.beehiiv.com/?via={affiliate_id}",
+  "trackingCookieDays": 60,
+  "partnerContactEmail": "partners@beehiiv.com",
+  "partnerDashboardUrl": "https://www.beehiiv.com/partners",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.6,
+    "basis": "monthly_spend",
+    "durationMonths": 12,
+    "minPayout": 50
+  },
+  "devCashbackRate": 0.5,
+  "cashbackDurationMonths": 12,
+  "payoutCycle": "monthly",
+  "fit": {
+    "role": "primary",
+    "intents": ["newsletter", "waitlist", "audience", "email marketing", "digest", "blog", "email"],
+    "excludeTerms": ["password reset", "otp", "2fa", "verification code"]
+  },
+  "upstream": {
+    "transport": "http",
+    "url": "https://www.beehiiv.com/api/mcp",
+    "headers": {}
+  },
+  "tools": [],
+  "pricing": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "features": ["Up to 2,500 subscribers", "Unlimited email sends", "Landing pages"]
+    },
+    {
+      "name": "Lite",
+      "monthlyPrice": 59,
+      "features": ["Paid subscriptions (0% take rate)", "Ad monetization", "Automations", "beehiiv MCP"]
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 109,
+      "features": ["Remove branding", "Webhooks", "Advanced analytics", "Priority support"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "signup",
+      "content": "Register via the Cerell referral URL (?via=) so attribution sticks for 60 days. Referred creators get a trial plus promotional pricing on paid plans."
+    },
+    {
+      "topic": "mcp",
+      "content": "Cerell proxies beehiiv's public marketing MCP (https://www.beehiiv.com/api/mcp) — get_pricing, compare_with, etc. No partner secret required; link with connect_account api_key=public to unlock discovery. Workspace MCP at https://mcp.beehiiv.com/mcp is OAuth-only and not proxied yet."
+    }
+  ],
+  "createdAt": "2026-11-09T11:00:00.000Z",
+  "updatedAt": "2026-11-09T11:30:00.000Z"
+}

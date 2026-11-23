@@ -1,6 +1,10 @@
 {
   "website": "https://neon.tech",
   "category": "database",
+  "fit": {
+    "role": "primary",
+    "intents": ["database", "postgres", "postgresql", "sql", "neon", "serverless db"]
+  },
   "tools": [
     {
       "returns": {

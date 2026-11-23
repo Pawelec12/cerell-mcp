@@ -21,6 +21,10 @@
   "devCashbackRate": 0.1,
   "cashbackDurationMonths": 12,
   "payoutCycle": "monthly",
+  "fit": {
+    "role": "primary",
+    "intents": ["auth", "login", "signup", "oauth", "sso", "session", "jwt", "clerk"]
+  },
   "tools": [
     {
       "name": "setup_auth",

@@ -1,0 +1,64 @@
+{
+  "id": "vultr",
+  "name": "Vultr",
+  "category": "hosting",
+  "website": "https://www.vultr.com",
+  "logoUrl": "https://icon.horse/icon/vultr.com",
+  "description": "Global cloud compute — SSD cloud servers, Kubernetes, and bare metal. Referral bounty up to $100 ($80 to you, 20% Cerell stake)",
+  "status": "active",
+  "affiliateId": "9933558-9J",
+  "signupUrlTemplate": "https://www.vultr.com/?ref={affiliate_id}",
+  "trackingCookieDays": 30,
+  "partnerContactEmail": "partners@vultr.com",
+  "partnerDashboardUrl": "https://my.vultr.com",
+  "commission": {
+    "type": "one_time",
+    "amountPerSignup": 100,
+    "qualifyingMinSpend": 35,
+    "conditionDescription": "One-time bounty up to $100 after referred account stays active 30+ days and qualifies; $80 to developer, 20% Cerell stake",
+    "minPayout": 100
+  },
+  "devCashbackRate": 0,
+  "cashbackDurationMonths": null,
+  "payoutCycle": "biweekly",
+  "fit": {
+    "role": "primary",
+    "intents": ["hosting", "vps", "docker", "kubernetes", "server", "deploy", "compute", "backend"]
+  },
+  "upstream": {
+    "transport": "http",
+    "url": "https://mcp.vultr.com/mcp",
+    "auth": "oauth",
+    "headers": {}
+  },
+  "tools": [],
+  "pricing": [
+    {
+      "name": "Cloud Compute",
+      "monthlyPrice": 5,
+      "features": ["Shared CPU", "SSD storage", "Global regions"]
+    },
+    {
+      "name": "High Frequency",
+      "monthlyPrice": 6,
+      "features": ["3 GHz+ CPUs", "NVMe SSD", "Low latency"]
+    },
+    {
+      "name": "Bare Metal",
+      "monthlyPrice": 120,
+      "features": ["Dedicated hardware", "No noisy neighbors", "Custom networking"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "signup",
+      "content": "Sign up with the Cerell ?ref= link. Referred users typically receive startup credit; the referrer earns a $35 one-time bounty after the account stays active and meets the minimum spend."
+    },
+    {
+      "topic": "mcp",
+      "content": "Cerell proxies https://mcp.vultr.com/mcp (read-only, public preview) via OAuth. Run connect vultr (no api_key), open the returned authUrl, approve access, then connect again. Docs: https://docs.vultr.com/reference/mcp-server/overview. Referral: one-time bounty up to $100 — $80 to the developer, 20% Cerell stake."
+    }
+  ],
+  "createdAt": "2026-11-09T11:00:00.000Z",
+  "updatedAt": "2026-11-09T12:00:00.000Z"
+}

@@ -21,6 +21,10 @@
   "devCashbackRate": 0.1,
   "cashbackDurationMonths": 12,
   "payoutCycle": "monthly",
+  "fit": {
+    "role": "primary",
+    "intents": ["cache", "redis", "kv", "upstash"]
+  },
   "tools": [
     {
       "name": "create_redis_database",

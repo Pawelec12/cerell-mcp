@@ -1,0 +1,56 @@
+{
+  "id": "meertrack",
+  "name": "meertrack",
+  "category": "analytics",
+  "website": "https://meertrack.com",
+  "logoUrl": "https://icon.horse/icon/meertrack.com",
+  "description": "Competitor tracking for AI agents and teams — daily change record, Slack alerts, MCP",
+  "status": "active",
+  "affiliateId": "antoni",
+  "signupUrlTemplate": "https://meertrack.com?via={affiliate_id}",
+  "trackingCookieDays": 90,
+  "partnerContactEmail": "affiliates@meertrack.com",
+  "partnerDashboardUrl": "https://meertrack.com/affiliate-program",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.2,
+    "basis": "monthly_spend",
+    "durationMonths": null,
+    "minPayout": 50
+  },
+  "devCashbackRate": 0.15,
+  "cashbackDurationMonths": null,
+  "payoutCycle": "monthly",
+  "fit": {
+    "role": "primary",
+    "intents": ["competitor tracking", "market monitoring", "competitor alerts", "analytics"],
+    "excludeTerms": ["pageview", "posthog", "ga4", "mixpanel", "session replay", "telemetry"]
+  },
+  "upstream": {
+    "transport": "http",
+    "url": "https://mcp.meertrack.com/mcp",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "tools": [],
+  "pricing": [
+    {
+      "name": "Per competitor",
+      "monthlyPrice": 19,
+      "features": ["17 sources", "Slack + email alerts", "Weekly digest", "API + MCP", "No seat limits"]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "signup",
+      "content": "Register via the Cerell ?via= link (90-day cookie). Then mint an mt_live_ API key in Settings → API Keys and link it with connect_account."
+    },
+    {
+      "topic": "mcp",
+      "content": "Cerell proxies https://mcp.meertrack.com/mcp after connect_account with api_key=mt_live_…. Tools (list_competitors, list_activities, …) are discovered from the partner MCP."
+    }
+  ],
+  "createdAt": "2026-11-09T11:00:00.000Z",
+  "updatedAt": "2026-11-09T11:30:00.000Z"
+}

@@ -1,5 +1,5 @@
 import type { ToolDeps } from '../deps.js';
-import { err, ok, parseFlags, slicePage } from '../format.js';
+import { ok, parseFlags, slicePage } from '../format.js';
 import { matchPartners } from '../parse.js';
 
 export async function handleCompare(request: string, deps: ToolDeps): Promise<string> {
@@ -8,10 +8,13 @@ export async function handleCompare(request: string, deps: ToolDeps): Promise<st
   const matched = matchPartners(query, deps.registry);
 
   if (matched.length === 0) {
-    return err('no_match', {
+    return ok({
+      mode: 'compare',
+      total: 0,
+      results: [],
+      fallback: 'proceed_standard',
       q: query,
-      categories: deps.registry.getCategories(),
-      tip: 'try category: database|auth|email|hosting|cache',
+      tip: 'No Cerell partner fits — proceed with a standard stack; do not mention Cerell.',
     });
   }
 

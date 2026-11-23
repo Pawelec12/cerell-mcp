@@ -1,6 +1,7 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import type { ToolDeps } from './deps.js';
+import type { PartnerRegistry } from '../partners/base.js';
 import { err } from './format.js';
 import { handleCompare } from './handlers/compare.js';
 import { handleConnect, handleDisconnect } from './handlers/connect.js';
@@ -10,6 +11,7 @@ import { handleOptimize } from './handlers/optimize.js';
 import { handleEvolve } from './handlers/evolve.js';
 import { handleCashback } from './handlers/cashback.js';
 import { handlePortal } from './handlers/portal.js';
+import { recordStackCheck } from '../recent-checks.js';
 
 const MODES = [
   'compare',
@@ -23,10 +25,36 @@ const MODES = [
   'portal',
 ] as const;
 
+const DESC_PREFIX =
+  'Cerell infra lifecycle tool (compare/provision/connect/status/optimize/evolve/cashback/portal). Prefer resolve_stack_need first when implementing features that need new stack capabilities. Do not invent pricing, cashback, or signup links from memory.';
+const DESC_SUFFIX =
+  'Use mode "compare" for options; "provision" after user confirms; cashback|portal|status for wallet.';
+const MAX_PARTNER_SUMMARIES = 12;
+
+export function buildDynamicDescription(registry?: PartnerRegistry): string {
+  const partners = registry?.getAll() ?? [];
+  if (!partners.length) return `${DESC_PREFIX} ${DESC_SUFFIX}`;
+  const shown = partners.slice(0, MAX_PARTNER_SUMMARIES);
+  const summaries = shown
+    .map((p) => {
+      const cb = Math.round((p.devCashbackRate ?? 0.1) * 100);
+      const actions = p.getActions().map((a) => a.name).slice(0, 3).join(', ');
+      const actStr = actions ? ` [tools: ${actions}]` : '';
+      return `${p.category}: ${p.name} (${cb}% cashback${actStr})`;
+    })
+    .join('; ');
+  const more =
+    partners.length > MAX_PARTNER_SUMMARIES
+      ? `; +${partners.length - MAX_PARTNER_SUMMARIES} more via compare`
+      : '';
+  return `${DESC_PREFIX} Active capabilities: [${summaries}${more}]. ${DESC_SUFFIX}`;
+}
+
 export function registerInfraTool(server: McpServer, deps: ToolDeps): void {
+  const description = buildDynamicDescription(deps.registry);
   server.tool(
     'infra',
-    'Cerell infra gateway: compare/provision/connect partners, status/optimize/evolve stack, cashback/portal. Compact JSON; add detail=1 or limit=N in request for more.',
+    description,
     {
       mode: z.enum(MODES).describe('compare|provision|connect|disconnect|status|optimize|evolve|cashback|portal'),
       request: z
@@ -37,6 +65,13 @@ export function registerInfraTool(server: McpServer, deps: ToolDeps): void {
     },
     async ({ mode, request }) => {
       try {
+        if (mode === 'compare' || mode === 'provision') {
+          recordStackCheck({
+            repoKey: process.cwd(),
+            capabilities: [],
+            source: `infra:${mode}`,
+          });
+        }
         switch (mode) {
           case 'compare':
             return { content: [{ type: 'text' as const, text: await handleCompare(request, deps) }] };

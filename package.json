@@ -1,12 +1,19 @@
 {
-  "name": "cerell-mcp",
-  "version": "0.1.0",
-  "description": "Cerell Infrastructure Copilot MCP Server — manage, optimize, and earn cashback on your dev infrastructure stack across all development stages",
+  "name": "@cerell/mcp",
+  "version": "0.2.0",
+  "description": "Cerell MCP server — provision, monitor, and earn cashback on your infrastructure stack from AI code editors",
   "type": "module",
   "bin": {
+    "cerell": "./dist/index.js",
     "cerell-mcp": "./dist/index.js"
   },
   "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "data/partners",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=20.0.0"
   },
@@ -15,6 +22,7 @@
     "start": "node dist/index.js",
     "dev": "tsc --watch",
     "test": "npm run build && node --test test/server.test.mjs",
+    "test:workflow": "npm run build && node test-workflow.mjs",
     "pack:mcpb": "node scripts/pack-mcpb.mjs",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js"
   },
@@ -31,22 +39,22 @@
   "keywords": [
     "mcp",
     "modelcontextprotocol",
-    "infrastructure",
-    "copilot",
+    "cerell",
     "claude",
     "cursor",
     "developer-tools",
     "cashback",
     "cloud",
-    "neon",
-    "clerk",
-    "upstash",
-    "resend"
+    "infrastructure"
   ],
   "author": "Pawelec12",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Pawelec12/cerell-mcp.git"
-  }
+  },
+  "homepage": "https://cerell.eu"
 }

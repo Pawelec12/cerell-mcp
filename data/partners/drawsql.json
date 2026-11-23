@@ -1,0 +1,63 @@
+{
+  "id": "drawsql",
+  "name": "DrawSQL",
+  "category": "database",
+  "website": "https://drawsql.app",
+  "logoUrl": "https://icon.horse/icon/drawsql.app",
+  "description": "Database ER diagram tool — design schemas, import/export SQL, AI schema review",
+  "status": "active",
+  "affiliateId": "antoni",
+  "signupUrlTemplate": "https://drawsql.app?via={affiliate_id}",
+  "trackingCookieDays": 60,
+  "partnerContactEmail": "affiliates@drawsql.app",
+  "partnerDashboardUrl": "https://drawsql.app",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.3,
+    "basis": "monthly_spend",
+    "durationMonths": 12,
+    "minPayout": 50
+  },
+  "devCashbackRate": 0.25,
+  "cashbackDurationMonths": 12,
+  "payoutCycle": "monthly",
+  "fit": {
+    "role": "companion",
+    "intents": ["database", "schema", "sql", "postgres", "mysql", "erd", "prisma", "drizzle", "migration"]
+  },
+  "upstream": {
+    "transport": "http",
+    "url": "https://drawsql.app/mcp",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "tools": [],
+  "pricing": [
+    {
+      "name": "Free",
+      "monthlyPrice": 0,
+      "features": [
+        "Limited diagrams",
+        "SQL import"
+      ]
+    },
+    {
+      "name": "Pro",
+      "monthlyPrice": 19,
+      "features": [
+        "AI schema review",
+        "Multiplayer",
+        "Export SQL / Laravel"
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "signup",
+      "content": "Register via https://drawsql.app?via=antoni. Affiliate share 30% for 12 months; developers get 25% cashback. MCP: https://drawsql.app/mcp — connect with an API token from Account → API tokens (Bearer). visualize_schema also works without a token."
+    }
+  ],
+  "createdAt": "2026-11-09T17:00:00.000Z",
+  "updatedAt": "2026-11-09T17:00:00.000Z"
+}

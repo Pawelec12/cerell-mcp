@@ -1,0 +1,56 @@
+{
+  "id": "fabric",
+  "name": "Fabric",
+  "category": "storage",
+  "website": "https://fabric.so",
+  "logoUrl": "https://icon.horse/icon/fabric.so",
+  "description": "Self-organizing personal cloud and AI workspace for files, ideas, and collaboration",
+  "status": "active",
+  "affiliateId": "antoni",
+  "signupUrlTemplate": "https://fabric.so?via={affiliate_id}",
+  "trackingCookieDays": 60,
+  "partnerContactEmail": "affiliates@fabric.so",
+  "partnerDashboardUrl": "https://fabric.so",
+  "commission": {
+    "type": "revenue_share",
+    "rate": 0.25,
+    "basis": "monthly_spend",
+    "durationMonths": 12,
+    "minPayout": 50,
+    "conditionDescription": "25% on the first 11 payments within the first 12 months"
+  },
+  "devCashbackRate": 0.2,
+  "cashbackDurationMonths": 12,
+  "payoutCycle": "monthly",
+  "fit": {
+    "role": "companion",
+    "intents": ["workspace", "knowledge base", "team files", "research", "storage"],
+    "excludeTerms": ["s3", "bucket", "avatar", "presigned", "blob", "multer", "uploadthing"]
+  },
+  "upstream": {
+    "transport": "http",
+    "url": "https://mcp.api.fabric.so/mcp",
+    "auth": "oauth",
+    "headers": {}
+  },
+  "tools": [],
+  "pricing": [
+    {
+      "name": "Pro",
+      "monthlyPrice": 12,
+      "features": [
+        "Personal cloud",
+        "AI organization",
+        "Sharing"
+      ]
+    }
+  ],
+  "documentation": [
+    {
+      "topic": "signup",
+      "content": "Register via https://fabric.so?via=antoni. Affiliate earns 25% on the first 11 payments within 12 months; developers get 20% cashback. MCP: https://mcp.api.fabric.so/mcp (OAuth, no API key). Run connect fabric and open authUrl."
+    }
+  ],
+  "createdAt": "2026-11-09T17:00:00.000Z",
+  "updatedAt": "2026-11-09T17:00:00.000Z"
+}
