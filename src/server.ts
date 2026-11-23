@@ -54,7 +54,7 @@ export function createServer(overrideDevId?: string): McpServer {
   const server = new McpServer(
     {
       name: '@cerell/mcp',
-      version: '0.2.0',
+      version: '0.2.1',
     },
     {
       instructions: CERELL_MCP_INSTRUCTIONS,

@@ -1,14 +1,15 @@
 {
   "name": "@cerell/mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cerell MCP server — provision, monitor, and earn cashback on your infrastructure stack from AI code editors",
   "type": "module",
   "bin": {
-    "cerell": "./dist/index.js",
-    "cerell-mcp": "./dist/index.js"
+    "cerell": "bin/cerell.js",
+    "cerell-mcp": "bin/cerell.js"
   },
   "main": "./dist/index.js",
   "files": [
+    "bin",
     "dist",
     "data/partners",
     "README.md",
